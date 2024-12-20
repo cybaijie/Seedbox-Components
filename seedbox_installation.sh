@@ -276,7 +276,7 @@ install_vertex_() {
 	timedatectl set-timezone Asia/Shanghai
 	mkdir -p /root/vertex
 	chmod 755 /root/vertex
-	docker run -d --name vertex --restart unless-stopped -v /root/vertex:/vertex -p $vertex_port:3000 -e TZ=Asia/Shanghai lswl/vertex:stable
+	docker run -d --name vertex --net=host --restart always -v /root/vertex:/vertex -e TZ=Asia/Shanghai lswl/vertex:stable
 	sleep 5s
 	# Check if Vertex is running
 	if ! [ "$( docker container inspect -f '{{.State.Status}}' vertex )" = "running" ]; then
