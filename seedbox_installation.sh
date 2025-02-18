@@ -56,40 +56,40 @@ seperator() {
 
 ## System Update and Install Dependencies
 update() {
-    apt-get -qqy update && apt-get -qqy upgrade
+    apt-get -qqy update && apt-get -o Dpkg::Options::="--force-confold" -qqy upgrade
 
     # Install Dependencies
-	if [ -z $(which sudo) ]; then
-		apt-get install sudo -qqy
-		if [ $? -ne 0 ]; then
-			fail_exit "Sudo Installation Failed"
-		fi
-	fi
-	if [ -z $(which wget) ]; then
-		apt-get install wget -qqy
-		if [ $? -ne 0 ]; then
-			fail_exit "Wget Installation Failed"
-		fi
-	fi
-	if [ -z $(which curl) ]; then
-		apt-get install curl -qqy
-		if [ $? -ne 0 ]; then
-			fail_exit "Curl Installation Failed"
-		fi
-	fi
-	if [ -z $(which sysstat) ]; then
-		apt-get install sysstat -qqy
-		if [ $? -ne 0 ]; then
-			fail_exit "Sysstat Installation Failed"
-		fi
-	fi
-	if [ -z $(which psmisc) ]; then
-		apt-get install psmisc -qqy
-		if [ $? -ne 0 ]; then
-			fail_exit "Psmisc Installation Failed"
-		fi
-	fi
-	return 0
+    if [ -z $(which sudo) ]; then
+        apt-get -o Dpkg::Options::="--force-confold" install sudo -qqy
+        if [ $? -ne 0 ]; then
+            fail_exit "Sudo Installation Failed"
+        fi
+    fi
+    if [ -z $(which wget) ]; then
+        apt-get -o Dpkg::Options::="--force-confold" install wget -qqy
+        if [ $? -ne 0 ]; then
+            fail_exit "Wget Installation Failed"
+        fi
+    fi
+    if [ -z $(which curl) ]; then
+        apt-get -o Dpkg::Options::="--force-confold" install curl -qqy
+        if [ $? -ne 0 ]; then
+            fail_exit "Curl Installation Failed"
+        fi
+    fi
+    if [ -z $(which sysstat) ]; then
+        apt-get -o Dpkg::Options::="--force-confold" install sysstat -qqy
+        if [ $? -ne 0 ]; then
+            fail_exit "Sysstat Installation Failed"
+        fi
+    fi
+    if [ -z $(which psmisc) ]; then
+        apt-get -o Dpkg::Options::="--force-confold" install psmisc -qqy
+        if [ $? -ne 0 ]; then
+            fail_exit "Psmisc Installation Failed"
+        fi
+    fi
+    return 0
 }
 
 install_autobrr_() {
