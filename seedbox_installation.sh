@@ -56,35 +56,35 @@ seperator() {
 
 ## System Update and Install Dependencies
 update() {
-    apt-get -qqy update && apt-get -o Dpkg::Options::="--force-confold" -qqy upgrade
+    DEBIAN_FRONTEND=noninteractive apt-get -qqy update && DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" -qqy upgrade
 
     # Install Dependencies
     if [ -z $(which sudo) ]; then
-        apt-get -o Dpkg::Options::="--force-confold" install sudo -qqy
+        DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" install sudo -qqy
         if [ $? -ne 0 ]; then
             fail_exit "Sudo Installation Failed"
         fi
     fi
     if [ -z $(which wget) ]; then
-        apt-get -o Dpkg::Options::="--force-confold" install wget -qqy
+        DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" install wget -qqy
         if [ $? -ne 0 ]; then
             fail_exit "Wget Installation Failed"
         fi
     fi
     if [ -z $(which curl) ]; then
-        apt-get -o Dpkg::Options::="--force-confold" install curl -qqy
+        DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" install curl -qqy
         if [ $? -ne 0 ]; then
             fail_exit "Curl Installation Failed"
         fi
     fi
     if [ -z $(which sysstat) ]; then
-        apt-get -o Dpkg::Options::="--force-confold" install sysstat -qqy
+        DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" install sysstat -qqy
         if [ $? -ne 0 ]; then
             fail_exit "Sysstat Installation Failed"
         fi
     fi
     if [ -z $(which psmisc) ]; then
-        apt-get -o Dpkg::Options::="--force-confold" install psmisc -qqy
+        DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confold" install psmisc -qqy
         if [ $? -ne 0 ]; then
             fail_exit "Psmisc Installation Failed"
         fi
