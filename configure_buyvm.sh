@@ -215,8 +215,8 @@ configure_ipv6() {
 
   # 地区配置数据
   local regions=(
-    "Las Vegas (LV):2605:6400:20::1"
     "New York (NY):2605:6400:10::1"
+    "Las Vegas (LV):2605:6400:20::1"
     "Luxembourg (LU):2605:6400:30::1"
     "Miami (MA):2605:6400:40::1"
   )
@@ -256,24 +256,22 @@ configure_ipv6() {
   done
 
   # 写入配置文件
-  echo -e "\niface eth0 inet6 static" >> /etc/network/interfaces
-  echo -e "\taddress $ipv6_address" >> /etc/network/interfaces
-  echo -e "\tnetmask 48" >> /etc/network/interfaces
-  echo -e "\tgateway $gateway" >> /etc/network/interfaces
+
+
+  printf "iface eth0 inet6 static\n" >> /etc/network/interfaces
+  printf "\taddress %s\n" "$ipv6_address" >> /etc/network/interfaces
+  printf "\tnetmask 64\n" >> /etc/network/interfaces
+  printf "\tgateway %s\n" "$gateway" >> /etc/network/interfaces
 
   echo "IPv6配置已写入/etc/network/interfaces"
-  
-  # 应用配置
-  if systemctl restart networking >/dev/null 2>&1; then
-    echo "网络服务已重新加载，当前IP配置："
-    ip -6 addr show dev eth0 | awk '/inet6/{print $2}'
-  else
-    echo "警告：网络服务重载失败，建议手动检查配置"
-  fi
+
+  # 不执行任何网络重启操作
+  echo "IPv6配置已完成，将在系统重启后生效"
 }
 
+
 # 执行配置
-# configure_ipv6
+configure_ipv6
 
 # 统一询问重启
 read -p "是否要立即重启系统？[Y/n] " -r
