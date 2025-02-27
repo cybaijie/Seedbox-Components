@@ -273,7 +273,7 @@ configure_ipv6() {
 }
 
 # 执行配置
-# configure_ipv6
+configure_ipv6
 
 # 统一询问重启
 read -p "是否要立即重启系统？[Y/n] " -r
