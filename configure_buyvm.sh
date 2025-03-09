@@ -273,6 +273,8 @@ configure_ipv6() {
 # 执行配置
 configure_ipv6
 
+sudo chown -R 1000:1000 /home/${USERNAME}/.config/qBittorrent
+
 # 统一询问重启
 read -p "是否要立即重启系统？[Y/n] " -r
 if [[ ! $REPLY =~ ^[Nn]$ ]]; then
